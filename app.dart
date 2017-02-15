@@ -4,15 +4,14 @@ import "dart:html";
 void main() {
 
 querySelector("#parseBtn").onClick.listen(parseText);
-parseText();
 
 }
 
-void parseText ()
+void parseText (MouseEvent event)
 {
-  int tStartCounter = 0;
-  int eEndCounter = 0;
-  int bothCounter = 0;
+  var tStartCounter = 0;
+  var eEndCounter = 0;
+  var bothCounter = 0;
   var preambleNow = querySelector('#preamble').text.toLowerCase();
 
   print("Hi Christian!");
@@ -46,9 +45,9 @@ void parseText ()
 
 
 
-   console.log(eEndCounter);
-   console.log(tStartCounter);
-   console.log(bothCounter);
+   print(eEndCounter);
+   print(tStartCounter);
+   print(bothCounter);
   querySelector('#endE').text = eEndCounter;
   querySelector('#startT').text = tStartCounter;
   querySelector('#both').text = bothCounter;
