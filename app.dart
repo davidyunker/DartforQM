@@ -12,7 +12,7 @@ void main() {
   querySelector("#parseBtn").onClick.listen(parseText);
   //another change for me in terms of syntax was handling event listeners.
 
-}
+  }
 
   void parseText (MouseEvent event) {
     var tStartCounter = 0;
@@ -32,7 +32,7 @@ void main() {
               eEndCounter += 1;
 
 
-            }
+              }
 
             else if (preambleList[i].startsWith("t")){
               tStartCounter += 1;
@@ -43,7 +43,7 @@ void main() {
               }
             else {
               print("Word I don't care about");
-            }
+              }
 
         }
 
