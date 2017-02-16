@@ -2971,6 +2971,20 @@
     applyHooksTransformer: function(transformer, hooks) {
       return transformer(hooks) || hooks;
     },
+    stringReplaceAllUnchecked: function(receiver, pattern, replacement) {
+      var $length, t1, i;
+      if (pattern === "")
+        if (receiver === "")
+          return replacement;
+        else {
+          $length = receiver.length;
+          for (t1 = replacement, i = 0; i < $length; ++i)
+            t1 = t1 + receiver[i] + replacement;
+          return t1.charCodeAt(0) == 0 ? t1 : t1;
+        }
+      else
+        return receiver.replace(new RegExp(pattern.replace(/[[\]{}()*+?.\\^$|]/g, "\\$&"), 'g'), replacement.replace(/\$/g, "$$$$"));
+    },
     ReflectionInfo: {
       "^": "Object;jsFunction,data,isAccessor,requiredParameterCount,optionalParameterCount,areOptionalParametersNamed,functionType,cachedSortedIndices",
       static: {
@@ -6561,26 +6575,36 @@
       W._EventStreamSubscription$(t1._html$_target, t1._eventType, S.app__parseText$closure(), false, H.getTypeArgumentByIndex(t1, 0));
     }, "call$0", "app__main$closure", 0, 0, 1],
     parseText: [function($event) {
-      var t1, preambleNow, preambleList, tStartCounter, i, eEndCounter, bothCounter, t2;
+      var t1, preambleNow, preambleList, tStartCounter, eEndCounter, bothCounter, i, t2;
       t1 = document;
-      preambleNow = t1.querySelector("#preamble").textContent.toLowerCase();
-      P.print("Hi Christian!");
+      preambleNow = H.stringReplaceAllUnchecked(t1.querySelector("#preamble").textContent.toLowerCase(), ",", "");
+      P.print("I'm really enjoying learning about Dart!");
       preambleList = preambleNow.split(" ");
-      for (tStartCounter = 0, i = 0; i < preambleList.length; ++i)
-        if (J.startsWith$1$s(preambleList[i], "t"))
-          ++tStartCounter;
-      for (eEndCounter = 0, i = 0; i < preambleList.length; ++i)
-        if (J.endsWith$1$s(preambleList[i], "e"))
-          ++eEndCounter;
-      for (bothCounter = 0, i = 0; i < preambleList.length; ++i) {
+      for (tStartCounter = 0, eEndCounter = 0, bothCounter = 0, i = 0; i < preambleList.length; ++i) {
         if (J.startsWith$1$s(preambleList[i], "t")) {
           if (i >= preambleList.length)
             return H.ioore(preambleList, i);
           t2 = J.endsWith$1$s(preambleList[i], "e");
         } else
           t2 = false;
-        if (t2)
+        if (t2) {
           ++bothCounter;
+          ++tStartCounter;
+          ++eEndCounter;
+        } else {
+          if (i >= preambleList.length)
+            return H.ioore(preambleList, i);
+          if (J.startsWith$1$s(preambleList[i], "t"))
+            ++tStartCounter;
+          else {
+            if (i >= preambleList.length)
+              return H.ioore(preambleList, i);
+            if (J.endsWith$1$s(preambleList[i], "e"))
+              ++eEndCounter;
+            else
+              H.printString("Word I don't care about");
+          }
+        }
       }
       P.print(eEndCounter);
       P.print(tStartCounter);
