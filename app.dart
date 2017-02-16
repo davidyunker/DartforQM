@@ -1,9 +1,16 @@
 
 import "dart:html";
 
+
+
 void main() {
+  // The biggest learning curve for the Dart version of the project was the syntax, including
+  // the main method.
+
+
 
   querySelector("#parseBtn").onClick.listen(parseText);
+  //another change for me in terms of syntax was handling event listeners.
 
 }
 
